@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TEENPATTI HACK</title>
+  <style>
+    body {
+      background-color: black;
+      color: lime;
+      font-family: monospace;
+      text-align: center;
+      padding: 10px;
+    }
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+      border: 2px solid lime;
+      border-radius: 5px;
+      background: black;
+      color: lime;
+      margin: 5px;
+    }
+    button {
+      background-color: lime;
+      color: black;
+      cursor: pointer;
+    }
+    .note {
+      color: red;
+      font-weight: bold;
+    }
+    .icon-bar {
+      display: flex;
+      justify-content: space-around;
+      position: fixed;
+      bottom: 10px;
+      left: 0;
+      width: 100%;
+    }
+    .floating-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 0 10px lime;
+      margin: auto;
+    }
+    .register-link {
+      display: inline-block;
+      padding: 6px 12px;
+      border: 1px solid lime;
+      color: lime;
+      text-decoration: none;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .register-link:hover {
+      color: black;
+      background-color: lime;
+    }
+    #logs {
+      max-height: 100px;
+      overflow-y: auto;
+      font-size: 14px;
+      text-align: left;
+      margin-top: 20px;
+      border: 1px solid lime;
+      padding: 10px;
+    }
+    #leaderboard {
+      border: 1px solid lime;
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <a class="register-link" href="https://3pattino1.net?from_gameid=7770185&channelCode=100000" target="_blank">🔒 Register New Account - Click Here</a>
+  <p class="note">IMPORTANT NOTE: THIS IS WORKING ONLY FOR TEENPATTI NO.1 - DON'T TRY ANOTHER GAMES!</p>
+  <h2>🎮 Enter Your Game ID</h2>
+  <input id="gameId" type="text" placeholder="Enter Game ID" />
+  <p id="liveVisitors" style="color:lime; font-weight:bold; font-size:18px;">👁️ 7 Live Visitors</p>
+  <button onclick="showInputs()">Continue</button>
+
+  <div id="resultSection" style="display:none">
+    <h3>⏳ 4 Results Enter Karain (T ya D)</h3>
+    <input id="res1" placeholder="T/D">
+    <input id="res2" placeholder="T/D">
+    <input id="res3" placeholder="T/D">
+    <input id="res4" placeholder="T/D">
+    <br />
+    <button onclick="predictResult()">Submit</button>
+    <p id="countdown"></p>
+    <p id="predictionText"></p>
+  </div>
+
+  <br />
+  <button onclick="copyRefer()">🔗 Refer & Earn</button>
+  <p id="referText">You have 0 points.</p>
+
+  <div class="floating-icon" onclick="window.open('https://whatsapp.com/channel/0029VbAyNbhJpe8aNvDko02I')">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="30" alt="WA" />
+  </div>
+
+  <div class="icon-bar">
+    <div style="border:2px solid lime;padding:8px;border-radius:10px;">💰</div>
+    <div style="border:2px solid lime;padding:8px;border-radius:10px;">🟢</div>
+    <div style="border:2px solid lime;padding:8px;border-radius:10px;">💬</div>
+  </div>
+
+  <div id="logs"></div>
+  <div id="leaderboard">
+    <strong>🏆 Referral Leaderboard</strong><br>
+    1. Hacker_Pro (23)<br>
+    2. XploitKing (17)<br>
+    3. Shadow99 (12)<br>
+    4. <span style="color:yellow">You (9)</span>
+  </div>
+
+  <script>
+    function showInputs() {
+      const id = document.getElementById('gameId').value.trim();
+      if (id) {
+        document.getElementById('resultSection').style.display = 'block';
+      }
+    }
+
+    function speak(text) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'en-US';
+      utterance.pitch = 0.7;
+      utterance.rate = 1;
+      speechSynthesis.speak(utterance);
+    }
+
+    function predictResult() {
+      const values = [
+        document.getElementById('res1').value.trim().toUpperCase(),
+        document.getElementById('res2').value.trim().toUpperCase(),
+        document.getElementById('res3').value.trim().toUpperCase(),
+        document.getElementById('res4').value.trim().toUpperCase()
+      ];
+      if (!values.every(v => v === 'T' || v === 'D')) {
+        alert("Enter only 'T' or 'D' in the fields.");
+        return;
+      }
+
+      let countdown = 3;
+      const countdownEl = document.getElementById('countdown');
+      const interval = setInterval(() => {
+        countdownEl.innerText = `⏳ Predicting in ${countdown}s...`;
+        if (--countdown < 0) {
+          clearInterval(interval);
+          countdownEl.innerText = "";
+
+          // AI-like prediction logic (based on previous pattern)
+          const tCount = values.filter(v => v === 'T').length;
+          const dCount = values.filter(v => v === 'D').length;
+          const pattern = values.join('');
+
+          let prediction;
+          if (tCount === 4) prediction = 'D';
+          else if (dCount === 4) prediction = 'T';
+          else if (pattern === 'TDTD' || pattern === 'DTDT') prediction = 'T';
+          else if (tCount > dCount) prediction = 'D';
+          else if (dCount > tCount) prediction = 'T';
+          else prediction = pattern.endsWith('T') ? 'D' : 'T';
+
+          document.getElementById('predictionText').innerText = `📊 NEXT WINNER: ${prediction}`;
+          speak(`Next winner is ${prediction}`);
+          logPrediction(prediction);
+        }
+      }, 1000);
+    }
+
+    function logPrediction(result) {
+      const id = document.getElementById('gameId').value.trim();
+      const logs = document.getElementById('logs');
+      const time = new Date().toLocaleTimeString();
+      const entry = `🕒 [${time}] Game ID ${id || 'unknown'} — Predicted: ${result} ✅`;
+      logs.innerHTML = entry + '<br>' + logs.innerHTML;
+    }
+
+    function copyRefer() {
+      const gameId = document.getElementById('gameId').value;
+      const link = `${window.location.origin}?ref=${gameId || 'YOUR_ID'}`;
+      navigator.clipboard.writeText(link);
+      alert("Refer link copied: " + link);
+    }
+
+    let visitorCount = 7;
+    function updateVisitorCount() {
+      const change = Math.random() < 0.5 ? -1 : 1;
+      visitorCount += change;
+      if (visitorCount < 50) visitorCount = 50;
+      if (visitorCount > 520) visitorCount = 520;
+      document.getElementById("liveVisitors").innerText = `👁️ ${visitorCount} Live Visitors`;
+    }
+    setInterval(updateVisitorCount, 3000);
+
+    // Add to Home Screen prompt (PWA)
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      const addBtn = document.createElement('button');
+      addBtn.textContent = '📲 Add to Home Screen';
+      addBtn.style.cssText = 'background:lime;color:black;padding:10px;margin-top:10px;border:none;border-radius:5px;';
+      addBtn.onclick = () => {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then(() => {
+          addBtn.remove();
+        });
+      };
+      document.body.insertBefore(addBtn, document.getElementById('resultSection'));
+    });
+  </script>
+
+  <p style="margin-top:20px">DEVELOPED BY Manzoor's Studio 👑</p>
+</body>
+  </html>
